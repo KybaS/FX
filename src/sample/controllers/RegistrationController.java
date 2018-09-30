@@ -1,8 +1,5 @@
 package sample.controllers;
 
-import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,8 +9,14 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import sample.DbHandler;
+import sample.User;
+
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 public class RegistrationController {
+
 
     @FXML
     private ResourceBundle resources;
@@ -31,26 +34,19 @@ public class RegistrationController {
     private Button registrationButtonGo;
 
     @FXML
-    private PasswordField email;
+    private TextField lastName;
 
     @FXML
-    private PasswordField confirmPassword;
-
-    @FXML
-    private PasswordField regLogin;
-
-    @FXML
-    private PasswordField lastName;
+    private TextField email;
 
     @FXML
     private Button backToLogin;
 
     @FXML
     void initialize() {
-        DbHandler dbHandler = new DbHandler();
 
         registrationButtonGo.setOnAction(event -> {
-            dbHandler.registrationUser(firstName.getText(), lastName.getText(), regLogin.getText(), regPassword.getText(), email.getText());
+            registeringNewUser();
         });
 
         backToLogin.setOnAction(event -> {
@@ -71,6 +67,20 @@ public class RegistrationController {
             stage.showAndWait();
 
         });
+
+    }
+
+    private void registeringNewUser() {
+        DbHandler dbHandler = new DbHandler();
+
+        String firstN = firstName.getText();
+        String lastN = lastName.getText();
+        String pass = regPassword.getText();
+        String mail = email.getText();
+
+        User user = new User(firstN, lastN, pass, mail);
+
+        dbHandler.registrationUser(user);
 
     }
 }

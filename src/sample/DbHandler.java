@@ -21,18 +21,17 @@ public class DbHandler extends Configs {
         return dbConnection;
     }
 
-    public void registrationUser(String firstName, String lastName, String loginNick, String password, String email) {
+    public void registrationUser(User user) {
         String insert = "INSERT INTO " + Constants.USERS_TABLE + "(" + Constants.USERS_FIRST_NAME + ","
-                + Constants.USERS_LAST_NAME + "," + Constants.USERS_EMAIL + "," + Constants.USERS_LOGIN_NICK + ","
-                + Constants.USERS_PASSWORD + ")" + "VALUES(?,?,?,?,?)";
+                + Constants.USERS_LAST_NAME + "," + Constants.USERS_EMAIL + ","
+                + Constants.USERS_PASSWORD + ")" + "VALUES(?,?,?,?)";
 
         try {
             PreparedStatement preparedStatement = getDbConnection().prepareStatement(insert);
-            preparedStatement.setString(1, firstName);
-            preparedStatement.setString(2, lastName);
-            preparedStatement.setString(3, loginNick);
-            preparedStatement.setString(4, password);
-            preparedStatement.setString(5, email);
+            preparedStatement.setString(1, user.getFirstName());
+            preparedStatement.setString(2, user.getLastName());
+            preparedStatement.setString(3, user.getPassword());
+            preparedStatement.setString(4, user.getEmail());
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -41,4 +40,5 @@ public class DbHandler extends Configs {
             e.printStackTrace();
         }
     }
+
 }
