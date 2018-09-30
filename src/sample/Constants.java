@@ -7,5 +7,5 @@ public class Constants {
     public static final String USERS_LAST_NAME = "lastname";
     public static final String USERS_LOGIN_NICK = "login";
     public static final String USERS_PASSWORD = "password";
-    public static final String USERS_EMAIL = "emaile";
+    public static final String USERS_EMAIL = "email";
 }

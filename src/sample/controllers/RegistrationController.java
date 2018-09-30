@@ -11,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import sample.DbHandler;
 
 public class RegistrationController {
 
@@ -46,6 +47,12 @@ public class RegistrationController {
 
     @FXML
     void initialize() {
+        DbHandler dbHandler = new DbHandler();
+
+        registrationButtonGo.setOnAction(event -> {
+            dbHandler.registrationUser(firstName.getText(), lastName.getText(), regLogin.getText(), regPassword.getText(), email.getText());
+        });
+
         backToLogin.setOnAction(event -> {
             backToLogin.getScene().getWindow().hide();
 
