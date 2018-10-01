@@ -8,8 +8,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import sample.DbHandler;
+import sample.User;
 
 import java.io.IOException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class LoginController {
 
@@ -58,8 +62,26 @@ public class LoginController {
 
     }
 
-    private void loginUser(String loginText, String loginPassword) {
-        System.out.println("Login successful");
+    private void loginUser(String loginEmail, String loginPassword) {
+
+        DbHandler dbHandler = new DbHandler();
+        User user = new User();
+        user.setEmail(loginEmail);
+        user.setPassword(loginPassword);
+        ResultSet result = dbHandler.getUser(user);
+
+        int counter = 0;
+
+        try {
+            while (result.next()) {
+                counter++;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        if (counter >= 1) {
+            System.out.println("Login success!");
+        }
     }
 }
 

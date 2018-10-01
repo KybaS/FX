@@ -1,9 +1,9 @@
 package sample;
 
-public class Configs {
-    protected String dbHost = "localhost";
-    protected String dbPort = "3306";
-    protected String dbUser = "root";
-    protected String dbPass = "password";
-    protected String dbName = "kyba_energy";
+class Configs {
+     String dbHost = "localhost";
+     String dbPort = "3306";
+     String dbUser = "root";
+    String dbPass = "password";
+    String dbName = "kyba_energy";
 }

@@ -1,22 +1,16 @@
 package sample;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class DbHandler extends Configs {
-    Connection dbConnection;
 
-    public Connection getDbConnection()
+    private Connection getDbConnection()
             throws ClassNotFoundException, SQLException {
-        String connectionString = "jdbc:mysql://" + dbHost + ":"
-                + dbPort + "/" + dbName;
+        String connectionString = "jdbc:mysql://" + dbHost + ":" + dbPort + "/" + dbName;
 
         Class.forName("com.mysql.cj.jdbc.Driver");
 
-        dbConnection = DriverManager.getConnection(connectionString,
-                dbUser, dbPass);
+        Connection dbConnection = DriverManager.getConnection(connectionString, dbUser, dbPass);
 
         return dbConnection;
     }
@@ -39,6 +33,26 @@ public class DbHandler extends Configs {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    public ResultSet getUser(User user) {
+        ResultSet resultSet = null;
+
+        String select = "SELECT * FROM " + Constants.USERS_TABLE + " WHERE " +
+                Constants.USERS_EMAIL + "=? AND " + Constants.USERS_PASSWORD + "=?";
+
+        try {
+            PreparedStatement preparedStatement = getDbConnection().prepareStatement(select);
+            preparedStatement.setString(1, user.getEmail());
+            preparedStatement.setString(2, user.getPassword());
+
+            resultSet = preparedStatement.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return resultSet;
     }
 
 }
