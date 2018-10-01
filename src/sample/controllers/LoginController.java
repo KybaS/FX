@@ -40,25 +40,11 @@ public class LoginController {
             if (!loginText.equals("") && !loginPassword.equals(""))
                 loginUser(loginText, loginPassword);
             else
-                System.out.println("Login/Password is/are empty");
+                System.out.println("Login or Password is empty");
         });
 
         registrationButton.setOnAction(event -> {
-            registrationButton.getScene().getWindow().hide();
-
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/sample/views/registration.fxml"));
-
-            try {
-                loader.load();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            Parent root = loader.getRoot();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.showAndWait();
+            openNewScene("/sample/views/registration.fxml");
         });
 
     }
@@ -81,13 +67,31 @@ public class LoginController {
             e.printStackTrace();
         }
         if (counter >= 1) {
-            System.out.println("Login success!");
-        }else{
+            openNewScene("/sample/views/home.fxml");
+        } else {
             Shake userLoginAnim = new Shake(loginField);
             Shake userPassAnim = new Shake(passwordField);
             userLoginAnim.playAnimation();
             userPassAnim.playAnimation();
         }
+    }
+
+    private void openNewScene(String window) {
+        registrationButton.getScene().getWindow().hide();
+
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource(window));
+
+        try {
+            loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Parent root = loader.getRoot();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.showAndWait();
     }
 }
 
