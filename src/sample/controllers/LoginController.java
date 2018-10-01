@@ -10,6 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import sample.DbHandler;
 import sample.User;
+import sample.animations.Shake;
 
 import java.io.IOException;
 import java.sql.ResultSet;
@@ -81,6 +82,11 @@ public class LoginController {
         }
         if (counter >= 1) {
             System.out.println("Login success!");
+        }else{
+            Shake userLoginAnim = new Shake(loginField);
+            Shake userPassAnim = new Shake(passwordField);
+            userLoginAnim.playAnimation();
+            userPassAnim.playAnimation();
         }
     }
 }
