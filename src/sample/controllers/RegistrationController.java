@@ -17,13 +17,6 @@ import java.util.ResourceBundle;
 
 public class RegistrationController {
 
-
-    @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
-
     @FXML
     private TextField firstName;
 
